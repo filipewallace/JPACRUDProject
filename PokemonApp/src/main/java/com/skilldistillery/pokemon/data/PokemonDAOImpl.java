@@ -16,7 +16,7 @@ public class PokemonDAOImpl implements PokemonDAO {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Override
 	public Pokemon findPokemonById(int id) {
 		return em.find(Pokemon.class, id);
@@ -24,44 +24,60 @@ public class PokemonDAOImpl implements PokemonDAO {
 
 	@Override
 	public List<Pokemon> findPokemonByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "Select pokemon from Pokemon pokemon where pokemon.name like :name";
+		List<Pokemon> results = em.createQuery(query, Pokemon.class).setParameter("name", name).getResultList();
+		return results;
 	}
 
 	@Override
 	public List<Pokemon> showAllPokemon() {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "Select pokemon from Pokemon pokemon";
+		List<Pokemon> results = em.createQuery(query, Pokemon.class).getResultList();
+		return results;
 	}
 
 	@Override
 	public List<Pokemon> findPokemonByType(String type) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "select pokemon from Pokemon pokemon where pokemon.type like :type";
+		List<Pokemon> results = em.createQuery(query, Pokemon.class).getResultList();
+		return results;
 	}
 
 	@Override
 	public List<Pokemon> findPokemonByWeakness(String weakness) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "select pokemon from Pokemon pokemon where pokemon.type like :weakness";
+		List<Pokemon> results = em.createQuery(query, Pokemon.class).getResultList();
+		return results;
 	}
 
 	@Override
 	public Pokemon createPokemon(String name, String type, String weakness, String evolvedName, String imageUrl) {
-		// TODO Auto-generated method stub
-		return null;
+		Pokemon newPoke = new Pokemon(name, type, weakness, evolvedName, imageUrl);
+		em.persist(newPoke);
+		return newPoke;
 	}
 
 	@Override
 	public boolean deletePokemon(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		Pokemon poke = em.find(Pokemon.class, id);
+		if (poke != null) {
+			em.remove(poke);
+			return true;
+		}
+			return false;
 	}
 
 	@Override
 	public Pokemon updatePokemon(int id, Pokemon prototype) {
-		// TODO Auto-generated method stub
-		return null;
+		Pokemon managed = em.find(Pokemon.class, id);
+		managed.setName(prototype.getName());
+		managed.setType(prototype.getType());
+		managed.setWeakness(prototype.getWeakness());
+		managed.setEvolvedName(prototype.getEvolvedName());
+		managed.setImageUrl(prototype.getImageUrl());
+		return managed;
 	}
+
+
 
 }
