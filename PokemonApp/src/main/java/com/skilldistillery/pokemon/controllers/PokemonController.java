@@ -45,12 +45,13 @@ public class PokemonController {
 	public String deletePokemon(Model model, int id) {
 		boolean removed = pd.deletePokemon(id);
 		model.addAttribute("removed", removed);
-		return "delete_result";
+		return "deleteResult";
 	}
+	
 	@RequestMapping(path="editPokemon.do", method = RequestMethod.GET)
 	public String editPokemon(Model model, int id) {
 		model.addAttribute("pokemon", pd.findPokemonById(id));
-		return "edit_pokemon";
+		return "edit";
 	}
 	@RequestMapping(path="updatePokemon.do", method=RequestMethod.POST)
 	public String updatePokemon(Model model, int id, String name, String type, String weakness, String evolvedName, String imageUrl) {
@@ -64,7 +65,7 @@ public class PokemonController {
 	public String getAllPokemon(Model model) {
 		List<Pokemon> allPokemon = pd.showAllPokemon();
 		model.addAttribute("pokeList", allPokemon);
-		return "display_all";
+		return "displayAll";
 	}
 	
 }
