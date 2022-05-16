@@ -17,7 +17,7 @@
 <h3>Something went wrong, unable to remove pokemon from database</h3>
 </c:if>
 	<div>
-		<a href="/" class="button">Home</a>
+		<a href="goHome.do" class="button">Home</a>
 	</div>
 </body>
 </html>
